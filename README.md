@@ -197,3 +197,34 @@ corr_map(df, ax, palette)
 เรียงลำดับ corr ของปัจจัยที่ส่งผลต่อ ราคา
 
 # Data preprocessing
+
+## Create Dummy Variable
+อธิบายว่าทำทำไม
+```
+df1 = pd.get_dummies(data=df, drop_first=True)
+```
+crop ตารางมาใส่ ว่าตารางเปลี่ยนไปยังไง
+
+## Data spliting
+อธิบาย
+```
+X = df1.drop(['Price($)'], axis=1).values
+y = df1['Price($)'].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=15, test_size=0.30)
+```
+## Data scaling
+อธิบาย เพื่อ
+```
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error as MSE
+
+ss = StandardScaler()
+
+ss.fit(X)
+
+X_train_scaled = ss.transform(X_train)
+X_test_scaled = ss.transform(X_test)
+```
+# Traditional Machine Learning
+ใช้วิธีอะไร ปรับค่าอะไรยังไงบ้าง ได้ MAE เป็นยังไง
