@@ -64,14 +64,136 @@ plt.show()
 
 ![graph1](https://user-images.githubusercontent.com/85028821/189380224-0e4db924-6f53-4bcb-b83a-a7bec6f8eaed.png)
 
+ได้อะไรจากกราฟ
 
-
-# Heading 1
-## Heading 2
 ```
-print(hello world)
-```
-## Heading 2
-### Heading 3
+def count(df, x, ax, main_color=colors[2], second_color=colors[0]):
+    
+    ax.bar(df[x].value_counts().index, df[x].value_counts().values,
+           color=main_color, edgecolor=second_color, linewidth=3)
+    
+    set_style(ax)
+    
+    ax.set_xlabel(x.replace("_", " ").capitalize(), fontsize="x-large")
+    ax.set_ylabel("")
 
-![download](https://user-images.githubusercontent.com/85028821/189327354-413612c2-edf3-4ab8-9d20-0927cc484351.png)
+cols = ['Brand', 'Type', 'Transmission']
+
+fig, ax = plt.subplots(1, 3, figsize=(30, 7))
+
+for i, col in enumerate(cols):
+    count(df, col, ax[i])
+    
+fig.suptitle("Count of values for categorical columns", size="xx-large")
+
+plt.show()
+```
+![graph2](https://user-images.githubusercontent.com/85028821/189382343-8674757a-6be6-4e62-a4b0-6ef75cf954c2.png)
+
+จากกราฟข้างต้นจะเห็นได้ว่า
+รถที่นิยม 5 อันดับแรกคือ
+ชนิดรถที่นิยม ...
+ชนิดเกียร์ ...
+
+```
+df['Brand'].value_counts().head()
+
+df['Type'].value_counts().head()
+
+df['Transmission'].value_counts().head()
+```
+
+แปะตาราง
+
+## Correlation
+หาความสัมพันธ์ของตัวแปรต่างๆว่ามีผลต่อราคารถยนต์อย่างไร
+```
+def scatter(df, x, y, ax, main_color=colors[1], second_color=colors[0]):
+    
+    sns.regplot(data=df, x=x, y=y, ax=ax, 
+                 color=main_color, ci=75,
+                scatter_kws={
+                    'edgecolor':second_color,
+                    'linewidth':1.5,
+                    's':50
+                },
+                line_kws={
+                    'color':colors[2],
+                    'linewidth':3,
+                }
+               )
+    ax.set_xlabel(x.replace("_", " ").capitalize())
+    ax.set_ylabel(y.replace("_", " ").capitalize())
+    
+    sns.despine(ax=ax)
+    ax.grid(axis='x')
+
+cols = ['Coe_left(yrs)', 'Dep($)', 'Mileage(mile)', 'Road Tax($)', 'Dereg Value($)', 'COE($)', 'Engine Cap(cc)',
+       'Curb Weight(kg)', 'Manufactured(yrs)', 'OMV($)', 'ARF($)', 'Power', 'No. of Owners' ]
+
+fig, axs = plt.subplots(8, 2,figsize=(15, 40))
+
+for i, col in enumerate(cols):
+    
+    row_index = i // 2
+    col_index = i % 2
+    
+    ax = axs[row_index][col_index]
+    
+    scatter(df, col,'Price($)', ax)
+    
+plt.show()
+```
+
+![graph3](https://user-images.githubusercontent.com/85028821/189383800-71acc109-ea9d-45d7-a8d8-ab4374afeb5a.png)
+
+อธิบายว่าปัจจัยไหนมีผลต่อราคายังไง
+
+```
+def stripplot(df, x, y, ax, palette=[colors[1], colors[2]]):
+    
+    sns.stripplot(data=df, x=x, y=y, palette=palette, ax=ax,
+                 linewidth=2, size=8)
+    
+    set_style(ax)
+
+fig, axs = plt.subplots(1, 3, figsize=(25, 6), sharey=True)
+
+for i, col in enumerate(['Brand', 'Type', 'Transmission']):
+    
+    stripplot(df, col, 'Price($)', axs[i])
+    
+    axs[i].set(
+        xlabel=col.replace("_", " ").capitalize(),
+        ylabel="Price($)"
+    )
+
+plt.show()
+```
+![graph4](https://user-images.githubusercontent.com/85028821/189384404-9842b557-9985-4036-a873-5a85643ef653.png)
+
+อธิบายกราฟ
+
+เพื่อดูค่าความสัมพันธ์ที่ชัดเจน สามารถดูจากตาราง correlation
+
+```
+def corr_map(df, ax, palette, edgecolor=colors[0]):
+    
+    corr = df.corr()
+    
+    sns.heatmap(corr, annot=True, ax=ax,
+               cmap=palette, square=True, linewidth=.5, linecolor=edgecolor,
+               vmin=-1, vmax=1, fmt=".2f")
+ 
+ fig, ax = plt.subplots(figsize=(12, 12))
+
+palette = sns.diverging_palette(299, 192, s=89, l=71, as_cmap=True, sep=20)
+
+corr_map(df, ax, palette)
+```
+
+![corr_matrix](https://user-images.githubusercontent.com/85028821/189384778-fc9d8017-2fae-454c-b937-95d3a38f4b7b.png)
+
+เรียงลำดับ corr ของปัจจัยที่ส่งผลต่อ ราคา
+
+# Data preprocessing
