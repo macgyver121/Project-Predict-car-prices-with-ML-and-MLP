@@ -12,7 +12,7 @@ data columns -
 df.info()
 ```
 
-## Cleasing data
+## Cleansing data
 อธิบายว่าทำอะไร เอา na ออก ลบ column
 
 ```
