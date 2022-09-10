@@ -199,15 +199,17 @@ corr_map(df, ax, palette)
 # Data preprocessing
 
 ## Create Dummy Variable
-อธิบายว่าทำทำไม
+เป็นการเปลี่ยน column ที่เป็นตัวแปรประเภท category สามารถเข้าสมการ regression ได้ โดยจะได้ค่าออกมาเป็น column ใหม่ ที่เป็นข้อมูลประเภท binary ความหมานคือถ้าเป็นข้อมูลประเภทนั้นจะแทนด้วย 1 ถ้าไม่ใช่แทนด้วย 0
 ```
 df1 = pd.get_dummies(data=df, drop_first=True)
 ```
+ตัวอย่างตารางหลังการทำ dummy variable เรียบร้อย
 
 ![image](https://user-images.githubusercontent.com/85028821/189478547-b44aec4e-b30e-412b-bfd8-5bbcd15c5cfc.png)
 
+
 ## Data spliting
-อธิบาย
+ทำการ split data ออกเป็น train และ test ทั้งตัวแปล x และ y โดยกำหนดอัตราส่วนเป็น 70:30 ตามลำดับ และกำหนด random_state=15
 ```
 X = df1.drop(['Price($)'], axis=1).values
 y = df1['Price($)'].values
@@ -215,7 +217,7 @@ y = df1['Price($)'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=15, test_size=0.30)
 ```
 ## Data scaling
-อธิบาย เพื่อ
+เป็นการปรับข้อมูลให้มี scale อยู่ในระดับเดียวกัน เพื่อนำไปเข้าสมการ regresssion ได้มีประสิทธิภาพมากขึ้น โดยวิธีการนี้จะทำให้ข้อมูลในแต่ละ column ถูกปรับขนาดให้มีความแปรปรวนใกล้เคียงกันเท่ากับ 1
 ```
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error as MSE
