@@ -203,7 +203,8 @@ corr_map(df, ax, palette)
 ```
 df1 = pd.get_dummies(data=df, drop_first=True)
 ```
-crop ตารางมาใส่ ว่าตารางเปลี่ยนไปยังไง
+
+![image](https://user-images.githubusercontent.com/85028821/189478547-b44aec4e-b30e-412b-bfd8-5bbcd15c5cfc.png)
 
 ## Data spliting
 อธิบาย
