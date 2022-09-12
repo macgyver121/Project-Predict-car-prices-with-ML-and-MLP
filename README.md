@@ -225,7 +225,63 @@ X_test_scaled = ss.transform(X_test)
 ```
 
 # Traditional Machine Learning
-ใช้วิธีอะไร ปรับค่าอะไรยังไงบ้าง ได้ MAE เป็นยังไง
+
+```
+from datetime import datetime
+start_time = datetime.now()
+
+from sklearn.linear_model import Ridge
+
+poly_reg=PolynomialFeatures(degree=3)
+
+X_poly = poly_reg.fit_transform(X_train_scaled)
+
+X_poly_test = poly_reg.fit_transform(X_test_scaled)
+
+train_mae = list()
+test_mae = list()
+
+alphas = [i for i in range(0, 2000, 100)]
+for i in alphas :
+    clf = Ridge(alpha=i)
+    clf.fit(X_poly, y_train)
+    
+    y_pred = clf.predict(X_poly)
+    y_pred_test = clf.predict(X_poly_test)
+        
+    train_mae.append(mean_absolute_error(y_train, y_pred))
+    test_mae.append(mean_absolute_error(y_test, y_pred_test))
+    
+for i, alpha in enumerate(alphas):
+    print("--"*10, f" alpha={alpha} ", "--"*10)
+    print(f"TRAIN MAE -> {train_mae[i]}")
+    print(f"TEST MAE -> {test_mae[i]}")
+
+end_time = datetime.now()
+print('Duration: {}'.format(end_time - start_time))
+```
+ทำ Traditional Machine learning ด้วย model Polynomial Regression degree3 และใช้ Ridge ในการทำ regularization
+ทำการปรับค่า alpha ของ ridge เพื่อหา loss ที่ต่ำที่สุดของ test ที่ไม่ทำให้เกิดการ overfitting โดย loss function ที่เลือกใช้คือ Mean absolute error 
+
+```
+i_alpha_optim = np.argmin(test_mae)
+alpha_optim = alphas[i_alpha_optim]
+print("Optimal regularization parameter : %s" % alpha_optim)
+```
+โดยค่า alpha ที่ทำให้ค่า loss ต่ำที่สุดจากการทดลองครั้งนี้คือ alpha = 800 ได้ค่า MAE ของ test เท่ากับ 7690.42 และของ train เท่ากับ 3026.06
+หรือดูจากกราฟระหว่าง MAE และ alpha ได้เช่นกัน
+```
+plt.subplot(2, 1, 1)
+plt.semilogx(alphas, train_mae, label="Train")
+plt.semilogx(alphas, test_mae, label="Test")
+plt.xlim([0, 2000])
+plt.ylim([0, 10000])
+plt.xlabel('alpha')
+plt.ylabel('MAE')
+plt.legend()
+plt.show()
+```
+![image](https://user-images.githubusercontent.com/85028821/189691895-1aea8bfa-9146-407a-8f41-524d1d14533e.png)
 
 # Multilayer perceptron
 - Network architecture: รายละเอียดต่าง ๆ ของโมเดลที่เลือกใช้ (เช่น จำนวนและตำแหน่งการวาง layer, จำนวน nodes, activation function, regularization) ในรูปแบบของ network diagram หรือตาราง (โดยใส่ข้อมูลให้ละเอียดพอที่คนที่มาอ่าน จะสามารถไปสร้าง network ตามเราได้)
