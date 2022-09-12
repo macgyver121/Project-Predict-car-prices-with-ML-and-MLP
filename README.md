@@ -288,9 +288,6 @@ plt.show()
 ## Create Network architecture
 
 ```
-from datetime import datetime
-start_time = datetime.now()
-
 np.random.seed(1234)
 tf.random.set_seed(5678)
 
@@ -306,12 +303,8 @@ model.add(tf.keras.layers.Dense(8, activation='relu', name = 'dense4'))
 # Output layer
 model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 
-# Configure the model and start training
-model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mean_absolute_error'])
-history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1, validation_split=0.3, callbacks=[earlystopping])
 
-end_time = datetime.now()
-print('Duration: {}'.format(end_time - start_time))
+
 ```
 
 - input layer : กำหนดจำนวน node ของinput เท่ากับจำนวน column คือ 61 
@@ -321,6 +314,21 @@ print('Duration: {}'.format(end_time - start_time))
 โดย model นี้ไม่ได้ทำการ regularization เนื่องจาก model ไม่ได้มีปัญหา overfitting
 
 **** network diagram ****
+
+## Compile the model
+```
+model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mean_absolute_error'])
+```
+
+## Train the model on train set
+```
+from keras import callbacks
+earlystopping = callbacks.EarlyStopping(monitor ="val_loss", 
+                                        mode ="min", patience = 20, 
+                                        restore_best_weights = True)
+
+history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1, validation_split=0.3, callbacks=[earlystopping])
+```
 
 
 - Training: รายละเอียดของการ train และ validate ข้อมูล รวมถึงทรัพยากรที่ใช้ในการ train โมเดลหนึ่ง ๆ เช่น training strategy (เช่น single loss, compound loss, two-step training, end-to-end training), loss, optimizer (learning rate, momentum, etc), batch size,
