@@ -127,7 +127,7 @@ df['Transmission'].value_counts().head()
 แปะตาราง
 
 ## Correlation
-หาความสัมพันธ์ของตัวแปรต่างๆว่ามีผลต่อราคารถยนต์อย่างไร
+ต่อมาเราจะดูปัจจัยต่างๆที่มีผลต่อราคารถโดยสังเกตุจากความสัมพันธ์ระหว่างตัวแปรต่างๆข้างต้นกับราคารถเราจะได้กราฟความสัมพันธ์ดังนี้
 ```
 def scatter(df, x, y, ax, main_color=colors[1], second_color=colors[0]):
     
@@ -168,7 +168,7 @@ plt.show()
 
 ![graph3](https://user-images.githubusercontent.com/85028821/189383800-71acc109-ea9d-45d7-a8d8-ab4374afeb5a.png)
 
-อธิบายว่าปัจจัยไหนมีผลต่อราคายังไง
+ข้อสังเกตุที่เราได้จากกราฟต่างๆจะเห็นว่า Dep, Coe left,Road tax, Dereg Value, Coe,Engine cap, curb weight, Omv, Art, Power มีความสัมพันธ์เชิงบวกกับราคารถยนต์ส่วน Mileage, Manufactured, No. Of owners มีความสัมพันธ์เชิงลบกับราคารถ ก็ทำให้เกิดข้อสงสัยว่ามีความ Strong correlation มากเพียงใดในแต่ละปัจจัย เลยใช้ heatmap ในการอธิบายต่อไป
 
 ```
 def stripplot(df, x, y, ax, palette=[colors[1], colors[2]]):
@@ -215,7 +215,8 @@ corr_map(df, ax, palette)
 
 ![corr_matrix](https://user-images.githubusercontent.com/85028821/189384778-fc9d8017-2fae-454c-b937-95d3a38f4b7b.png)
 
-เรียงลำดับ corr ของปัจจัยที่ส่งผลต่อ ราคา
+จาก heat map ข้างต้นปัจจัยที่มีความ Strong correlation มากที่สุด 5 อันดับแรก ได้แก่ 	Dereg Value, ARF, OMV , Power และ Dep
+ซึ่งอาจจะเป็นปัจจัยที่สำคัญหลักๆที่มีผลต่อราคา
 
 # Data preprocessing
 
