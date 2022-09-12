@@ -1,7 +1,7 @@
 # Introduction
 จุดประสงค์การศึกษาครั้งนี้เป็นส่วนหนึ่งของวิชา DADS7202 Deep learning คณะสถิติประยุกต์ สาขาวิชาการวิเคราะห์ข้อมูลและวิทยาการข้อมูล(DADS) สถาบันบัณฑิตพัฒนบริหารศาสตร์ โดยมี ผศ.ดร.ฐิติรัตน์ ศิริบวรรัตนกุล เป็นผู้สอน
 
-โดยทำการศึกษาเปรียบเทียบประสิทธิภาพการทำงานระหว่าง traditional machine learning กับ MLP โดยใช้ชุดข้อมูลตัวอย่างเป็น ราคารถยนต์มือสองในสิงคโปร์ปี2021 จาก https://www.kaggle.com/datasets/jiantay33/singapore-used-car
+ทำการศึกษาเปรียบเทียบประสิทธิภาพการทำงานระหว่าง traditional machine learning กับ MLP โดยใช้ชุดข้อมูลตัวอย่างเป็น ราคารถยนต์มือสองในสิงคโปร์ปี2021 จาก https://www.kaggle.com/datasets/jiantay33/singapore-used-car
 
 # Data
 ## Data source 
