@@ -283,8 +283,45 @@ plt.show()
 ```
 ![image](https://user-images.githubusercontent.com/85028821/189691895-1aea8bfa-9146-407a-8f41-524d1d14533e.png)
 
-# Multilayer perceptron
-- Network architecture: รายละเอียดต่าง ๆ ของโมเดลที่เลือกใช้ (เช่น จำนวนและตำแหน่งการวาง layer, จำนวน nodes, activation function, regularization) ในรูปแบบของ network diagram หรือตาราง (โดยใส่ข้อมูลให้ละเอียดพอที่คนที่มาอ่าน จะสามารถไปสร้าง network ตามเราได้)
+# Multilayer perceptron (MLP)
+
+## Network architecture
+
+```
+from datetime import datetime
+start_time = datetime.now()
+
+np.random.seed(1234)
+tf.random.set_seed(5678)
+
+model = tf.keras.models.Sequential()
+
+# Input layer
+model.add( tf.keras.Input(shape=(61, ) ))
+# Dense
+model.add(tf.keras.layers.Dense(64, activation='relu', name = 'dense1'))
+model.add(tf.keras.layers.Dense(32, activation='relu', name = 'dense2'))
+model.add(tf.keras.layers.Dense(16, activation='relu', name = 'dense3'))
+model.add(tf.keras.layers.Dense(8, activation='relu', name = 'dense4'))
+# Output layer
+model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
+
+# Configure the model and start training
+model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mean_absolute_error'])
+history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1, validation_split=0.3, callbacks=[earlystopping])
+
+end_time = datetime.now()
+print('Duration: {}'.format(end_time - start_time))
+```
+
+- input layer : กำหนดจำนวน node ของinput เท่ากับจำนวน column คือ 61 
+- dense layer : สร้าง dense layer 4 layer กำหนดจำนวน node ของแต่ละ layer เป็น 64,32,16,8 ตามลำดับ ใช้activation function คือ relu
+- output layer : กำหนดจำนวน node ของoutput เท่ากับ 1 ใช้activation function คือ linear
+โดย model นี้ไม่ได้ทำการ regularization เนื่องจาก model ไม่ได้มีปัญหา overfitting
+
+**** network diagram ****
+
+
 - Training: รายละเอียดของการ train และ validate ข้อมูล รวมถึงทรัพยากรที่ใช้ในการ train โมเดลหนึ่ง ๆ เช่น training strategy (เช่น single loss, compound loss, two-step training, end-to-end training), loss, optimizer (learning rate, momentum, etc), batch size,
 epoch, รุ่นและจำนวน CPU หรือ GPU หรือ TPU ที่ใช้, เวลาโดยประมาณที่ใช้ train โมเดลหนึ่งตัว ฯลฯ
 - Results: แสดงตัวเลขผลลัพธ์ในรูปของค่าเฉลี่ย mean±SD โดยให้ทำการเทรนโมเดลด้วย initial random weights ที่แตกต่างกันอย่างน้อย 3-5 รอบเพื่อให้ได้อย่างน้อย 3-5 โมเดลมาหาประสิทธิภาพเฉลี่ยกัน, แสดงผลลัพธ์การ train โมเดลเป็นกราฟเทียบ train vs. validation, สรุปผลว่าเกิด underfit หรือ overfit หรือไม่, อธิบาย evaluation metric ที่ใช้ในการประเมินประสิทธิภาพของโมเดลบน train/val/test sets ตามความเหมาะสมของปัญหา, หากสามารถเปรียบเทียบผลลัพธ์ของโมเดลเรากับโมเดลอื่น ๆ (ของคนอื่น) บน any standard benchmark dataset ได้ด้วยจะยิ่งทำให้งานดูน่าเชื่อถือยิ่งขึ้น เช่น เทียบความแม่นยำ เทียบเวลาที่ใช้train เทียบเวลาที่ใช้ inference บนซีพียูและจีพียู เทียบขนาดโมเดล ฯลฯ
