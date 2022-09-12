@@ -310,7 +310,11 @@ model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 
 โดย model นี้ไม่ได้ทำการ regularization เนื่องจาก model ไม่ได้มีปัญหา overfitting
 
-**** network diagram ****
+## Network diagram
+
+************************************************
+
+https://app.diagrams.net/
 
 ## Compile the model
 ```
@@ -337,7 +341,7 @@ history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1
 GPU ที่ใช้คือ Tesla T4 (UUID: GPU-7988356d-dfd4-b48c-471f-8ec9597324b4)
 เวลาที่ใช้ในการtrain model 1 ตัวคือ 3นาที 22วินาที
 
-จากกราฟของ loss และ epoch
+กราฟของ loss และ epoch
 ```
 # Summarize history for loss
 plt.figure(figsize=(15,5))
@@ -385,8 +389,15 @@ print(mean_absolute_error(y_test,y_pred_test))
 
 ได้ค่าเฉลี่ยของ MAE ออกมาเท่ากับ ...... และ SD เท่ากับ ......
 
-- Results: แสดงตัวเลขผลลัพธ์ในรูปของค่าเฉลี่ย mean±SD โดยให้ทำการเทรนโมเดลด้วย initial random weights ที่แตกต่างกันอย่างน้อย 3-5 รอบเพื่อให้ได้อย่างน้อย 3-5 โมเดลมาหาประสิทธิภาพเฉลี่ยกัน, แสดงผลลัพธ์การ train โมเดลเป็นกราฟเทียบ train vs. validation, สรุปผลว่าเกิด underfit หรือ overfit หรือไม่, อธิบาย evaluation metric ที่ใช้ในการประเมินประสิทธิภาพของโมเดลบน train/val/test sets ตามความเหมาะสมของปัญหา, หากสามารถเปรียบเทียบผลลัพธ์ของโมเดลเรากับโมเดลอื่น ๆ (ของคนอื่น) บน any standard benchmark dataset ได้ด้วยจะยิ่งทำให้งานดูน่าเชื่อถือยิ่งขึ้น เช่น เทียบความแม่นยำ เทียบเวลาที่ใช้train เทียบเวลาที่ใช้ inference บนซีพียูและจีพียู เทียบขนาดโมเดล ฯลฯ
+![image](https://user-images.githubusercontent.com/85028821/189704163-9c6eb463-7952-4dec-8f0c-8581cb5abaae.png)
+จากกราฟเทียบ train vs. validation สรุปได้ว่าข้อมูลของเราไม่ได้เกิดปัญหา underfit หรือ overfit เนื่องจากเราเลือกใช้ epoch ที่ทำให้ค่า error ของทั้ง train และ validation ต่ำที่สุดในmodelนี้
+
+Evaluation metric ที่ใช้คือ MAE เนื่องจากข้อมูลที่เลือกมาใช้มีลักษณะเป็น regression ดังนั้นจึงใช้ MAE เป็นทั้ง loss function และ evaluation metric
 
 # Conclusion
-88888888888888888888888888
-eieiei
+จากการทำ Traditional ML ทางกลุ่มเราเลือก algorithm มา2แบบ ได้แก่ Polynomial regression + Ridge และ DecisionTreeRegressor โดยใช้การประเมินmodel จากค่า mean absolute error (MAE) 
+และเวลาที่ใช้ในการrun ส่วนทาง Multilayer perceptron ใช้การประเมินแบบเดียวกัน ดังตาราง
+![image](https://user-images.githubusercontent.com/85028821/189715254-93b454dc-007d-4e7c-a41c-ad28f7467bc9.png)
+ผลลัพท์ที่ได้จากค่า MAE ของทั้ง Traditional ML และ MLP ไม่ได้แตกต่างกันมาก อาจเนื่องจากว่าข้อมูลที่นำมาใช้ไม่ได้ซับซ้อน หรือ ปริมาณไม่มาก แต่เวลาการrun MLP ใช้ค่อนข้างนานกว่า
+ดังนั้น ...
+
