@@ -302,11 +302,8 @@ model.add(tf.keras.layers.Dense(16, activation='relu', name = 'dense3'))
 model.add(tf.keras.layers.Dense(8, activation='relu', name = 'dense4'))
 # Output layer
 model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
-
-
-
 ```
-
+- set seed : กำหนดค่า seed ไว้ที่ 1234 และ 5678
 - input layer : กำหนดจำนวน node ของinput เท่ากับจำนวน column คือ 61 
 - dense layer : สร้าง dense layer 4 layer กำหนดจำนวน node ของแต่ละ layer เป็น 64,32,16,8 ตามลำดับ ใช้activation function คือ relu
 - output layer : กำหนดจำนวน node ของoutput เท่ากับ 1 ใช้activation function คือ linear
@@ -319,8 +316,10 @@ model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 ```
 model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mean_absolute_error'])
 ```
+ใช้ loss function และ matrics เป็น mean_absolute_error, ใช้ optimizer เป็น adam
 
-## Train the model on train set
+
+## Trained model with seed
 ```
 from keras import callbacks
 earlystopping = callbacks.EarlyStopping(monitor ="val_loss", 
@@ -329,10 +328,63 @@ earlystopping = callbacks.EarlyStopping(monitor ="val_loss",
 
 history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1, validation_split=0.3, callbacks=[earlystopping])
 ```
+ทำการtrain และปรับ hyperparameter ดังนี้
+- epochs=200 รอบ 
+- batch size = 2 
+- validation_split = 0.3
+- callbacks ที่ใช้คือ EarlyStopping โดยทำการเลือกค่า weight ที่ได้ค่า val_loss ต่ำที่สุด และถ้าไม่ได้ค่า val_loss ที่ต่ำกว่าเดิมจะมีการrunไปอีก20 epoch แล้วหยุดการทำงาน 
 
+GPU ที่ใช้คือ Tesla T4 (UUID: GPU-7988356d-dfd4-b48c-471f-8ec9597324b4)
+เวลาที่ใช้ในการtrain model 1 ตัวคือ 3นาที 22วินาที
 
-- Training: รายละเอียดของการ train และ validate ข้อมูล รวมถึงทรัพยากรที่ใช้ในการ train โมเดลหนึ่ง ๆ เช่น training strategy (เช่น single loss, compound loss, two-step training, end-to-end training), loss, optimizer (learning rate, momentum, etc), batch size,
-epoch, รุ่นและจำนวน CPU หรือ GPU หรือ TPU ที่ใช้, เวลาโดยประมาณที่ใช้ train โมเดลหนึ่งตัว ฯลฯ
+จากกราฟของ loss และ epoch
+```
+# Summarize history for loss
+plt.figure(figsize=(15,5))
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Train loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'val'], loc='upper right')
+plt.grid()
+plt.show()
+```
+![image](https://user-images.githubusercontent.com/85028821/189704163-9c6eb463-7952-4dec-8f0c-8581cb5abaae.png)
+
+ผลการทดลองที่ได้จาก model นี้ คือได้ค่า loss: 5507.1641 และ val_loss: 7592.5439 เป็นค่า val_loss ที่ต่ำที่สุดใน epoch ที่ 77
+
+## Evaluation the model on test set
+ทำการ train model แต่ละรอบโดยการเอาค่า seed ออก และนำ test dataset มาทำนายค่า output
+และการประเมินประสิทธิภาพของ model จากค่า MAE
+
+```
+model = tf.keras.models.Sequential()
+
+# Input layer
+model.add( tf.keras.Input(shape=(61, ) ))
+# Dense
+model.add(tf.keras.layers.Dense(64, activation='relu'))
+model.add(tf.keras.layers.Dense(32, activation='relu'))
+model.add(tf.keras.layers.Dense(16, activation='relu'))
+model.add(tf.keras.layers.Dense(8, activation='relu'))
+# Output layer
+model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
+
+# Configure the model and start training
+model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mean_absolute_error'])
+history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1, validation_split=0.3, callbacks =[earlystopping])
+
+y_pred_test = model.predict( X_test_scaled )
+print(mean_absolute_error(y_test,y_pred_test))
+```
+รอบที่1 ใช้เวลา ..... :  MAE of test dataset = 7518.92
+รอบที่2 ใช้เวลา ..... :  MAE of test dataset = 7139.60
+รอบที่3 ใช้เวลา ..... :  MAE of test dataset = 7725.01
+รอบที่4 ใช้เวลา ..... :  MAE of test dataset = 7056.47
+
+ได้ค่าเฉลี่ยของ MAE ออกมาเท่ากับ ...... และ SD เท่ากับ ......
+
 - Results: แสดงตัวเลขผลลัพธ์ในรูปของค่าเฉลี่ย mean±SD โดยให้ทำการเทรนโมเดลด้วย initial random weights ที่แตกต่างกันอย่างน้อย 3-5 รอบเพื่อให้ได้อย่างน้อย 3-5 โมเดลมาหาประสิทธิภาพเฉลี่ยกัน, แสดงผลลัพธ์การ train โมเดลเป็นกราฟเทียบ train vs. validation, สรุปผลว่าเกิด underfit หรือ overfit หรือไม่, อธิบาย evaluation metric ที่ใช้ในการประเมินประสิทธิภาพของโมเดลบน train/val/test sets ตามความเหมาะสมของปัญหา, หากสามารถเปรียบเทียบผลลัพธ์ของโมเดลเรากับโมเดลอื่น ๆ (ของคนอื่น) บน any standard benchmark dataset ได้ด้วยจะยิ่งทำให้งานดูน่าเชื่อถือยิ่งขึ้น เช่น เทียบความแม่นยำ เทียบเวลาที่ใช้train เทียบเวลาที่ใช้ inference บนซีพียูและจีพียู เทียบขนาดโมเดล ฯลฯ
 
 # Conclusion
