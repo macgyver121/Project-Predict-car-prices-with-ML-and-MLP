@@ -314,7 +314,7 @@ model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 
 ## Network diagram
 
-
+![MicrosoftTeams-image (5)](https://user-images.githubusercontent.com/85028821/189721135-50678c07-24df-45d7-a0a0-74ed6c67363d.png)
 
 https://app.diagrams.net/
 
