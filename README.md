@@ -392,6 +392,7 @@ print(mean_absolute_error(y_test,y_pred_test))
 ได้ค่าเฉลี่ยของ MAE ออกมาเท่ากับ ...... และ SD เท่ากับ ......
 
 ![image](https://user-images.githubusercontent.com/85028821/189704163-9c6eb463-7952-4dec-8f0c-8581cb5abaae.png)
+
 จากกราฟเทียบ train vs. validation สรุปได้ว่าข้อมูลของเราไม่ได้เกิดปัญหา underfit หรือ overfit เนื่องจากเราเลือกใช้ epoch ที่ทำให้ค่า error ของทั้ง train และ validation ต่ำที่สุดในmodelนี้
 
 Evaluation metric ที่ใช้คือ MAE เนื่องจากข้อมูลที่เลือกมาใช้มีลักษณะเป็น regression ดังนั้นจึงใช้ MAE เป็นทั้ง loss function และ evaluation metric
@@ -400,12 +401,13 @@ Evaluation metric ที่ใช้คือ MAE เนื่องจากข
 จากการทำ Traditional ML ทางกลุ่มเราเลือก algorithm มา2แบบ ได้แก่ Polynomial regression + Ridge และ DecisionTreeRegressor โดยใช้การประเมินmodel จากค่า mean absolute error (MAE) 
 และเวลาที่ใช้ในการrun ส่วนทาง Multilayer perceptron ใช้การประเมินแบบเดียวกัน ดังตาราง
 ![image](https://user-images.githubusercontent.com/85028821/189715254-93b454dc-007d-4e7c-a41c-ad28f7467bc9.png)
+
 ผลลัพท์ที่ได้จากค่า MAE ของทั้ง Traditional ML และ MLP ไม่ได้แตกต่างกันมาก อาจเนื่องจากว่าข้อมูลที่นำมาใช้ไม่ได้ซับซ้อน หรือ ปริมาณไม่มาก แต่เวลาการrun MLP ใช้ค่อนข้างนานกว่า
 ดังนั้น ...
 
 ## Member 
-1.นส.ศิริวลัย   มณีสินธุ์    6410412011
-2.นายศิวกร    ศรีชัยพฤกษ์ 6410412012
-3.นายนนทพร  วงษ์เล็ก    6410412016
-4.นายธีรพล   แสงเมือง    6410412019
+- นส.ศิริวลัย   มณีสินธุ์    6410412011
+- นายศิวกร    ศรีชัยพฤกษ์ 6410412012
+- นายนนทพร  วงษ์เล็ก    6410412016
+- นายธีรพล   แสงเมือง    6410412019
 
