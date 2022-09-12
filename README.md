@@ -34,7 +34,9 @@ df.info()
 ```
 
 ## Cleansing data
-อธิบายว่าทำอะไร เอา na ออก ลบ column
+
+เราทำการ clean ข้อมูลผ่าน application ชื่อ Openrefine โดยการกรุ๊ปชื่อตัวแปรให้เข้าใจง่าย เช่น Brand ของรถยนต์ เปลี่นน type ของตัวแปร
+ให้เป็น numeric ยิ่งกว่านั้นเราทำการกำจัด null และ coloumn ที่ไท้จำเป็นออก
 
 ```
 df = df.replace('N.A', np.NaN)
