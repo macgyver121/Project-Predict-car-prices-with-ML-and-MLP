@@ -285,7 +285,7 @@ plt.show()
 
 # Multilayer perceptron (MLP)
 
-## Network architecture
+## Create Network architecture
 
 ```
 from datetime import datetime
@@ -317,6 +317,7 @@ print('Duration: {}'.format(end_time - start_time))
 - input layer : กำหนดจำนวน node ของinput เท่ากับจำนวน column คือ 61 
 - dense layer : สร้าง dense layer 4 layer กำหนดจำนวน node ของแต่ละ layer เป็น 64,32,16,8 ตามลำดับ ใช้activation function คือ relu
 - output layer : กำหนดจำนวน node ของoutput เท่ากับ 1 ใช้activation function คือ linear
+
 โดย model นี้ไม่ได้ทำการ regularization เนื่องจาก model ไม่ได้มีปัญหา overfitting
 
 **** network diagram ****
