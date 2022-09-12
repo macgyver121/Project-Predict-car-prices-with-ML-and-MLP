@@ -124,7 +124,7 @@ df['Transmission'].value_counts().head()
 ![top5-type](https://user-images.githubusercontent.com/97573140/189682747-f97e4b88-cc46-4b8e-84a2-adb61cfd0cea.png)
 
 ## Correlation
-ต่อมาเราจะดูปัจจัยต่างๆที่มีผลต่อราคารถโดยสังเกตุจากความสัมพันธ์ระหว่างตัวแปรต่างๆข้างต้นกับราคารถเราจะได้กราฟความสัมพันธ์ดังนี้
+ต่อมาเราจะดูปัจจัยต่างๆที่มีผลต่อราคารถยนต์มือ2ในสิงคโปร์โดยสังเกตุจากความสัมพันธ์ระหว่างตัวแปรต่างๆข้างต้นกับราคารถเราจะได้กราฟความสัมพันธ์ดังนี้
 ```
 def scatter(df, x, y, ax, main_color=colors[1], second_color=colors[0]):
     
@@ -165,34 +165,7 @@ plt.show()
 
 ![graph3](https://user-images.githubusercontent.com/85028821/189383800-71acc109-ea9d-45d7-a8d8-ab4374afeb5a.png)
 
-ข้อสังเกตุที่เราได้จากกราฟต่างๆจะเห็นว่า Dep, Coe left,Road tax, Dereg Value, Coe,Engine cap, curb weight, Omv, Art, Power มีความสัมพันธ์เชิงบวกกับราคารถยนต์ส่วน Mileage, Manufactured, No. Of owners มีความสัมพันธ์เชิงลบกับราคารถ ก็ทำให้เกิดข้อสงสัยว่ามีความ Strong correlation มากเพียงใดในแต่ละปัจจัย เลยใช้ heatmap ในการอธิบายต่อไป
-
-```
-def stripplot(df, x, y, ax, palette=[colors[1], colors[2]]):
-    
-    sns.stripplot(data=df, x=x, y=y, palette=palette, ax=ax,
-                 linewidth=2, size=8)
-    
-    set_style(ax)
-
-fig, axs = plt.subplots(1, 3, figsize=(25, 6), sharey=True)
-
-for i, col in enumerate(['Brand', 'Type', 'Transmission']):
-    
-    stripplot(df, col, 'Price($)', axs[i])
-    
-    axs[i].set(
-        xlabel=col.replace("_", " ").capitalize(),
-        ylabel="Price($)"
-    )
-
-plt.show()
-```
-![graph4](https://user-images.githubusercontent.com/85028821/189384404-9842b557-9985-4036-a873-5a85643ef653.png)
-
-อธิบายกราฟ
-
-เพื่อดูค่าความสัมพันธ์ที่ชัดเจน สามารถดูจากตาราง correlation
+ข้อสังเกตุที่เราได้จากกราฟต่างๆจะเห็นว่า Dep, Coe left,Road tax, Dereg Value, Coe,Engine cap, curb weight, Omv, Art, Power มีความสัมพันธ์เชิงบวกกับราคารถยนต์มือ2ในสิงคโปร์ส่วน Mileage, Manufactured, No. Of owners มีความสัมพันธ์เชิงลบกับราคารถ ก็ทำให้เกิดข้อสงสัยว่ามีความ Strong correlation มากเพียงใดในแต่ละปัจจัย เลยใช้ heatmap ในการอธิบายต่อไป
 
 ```
 def corr_map(df, ax, palette, edgecolor=colors[0]):
@@ -212,29 +185,31 @@ corr_map(df, ax, palette)
 
 ![corr_matrix](https://user-images.githubusercontent.com/85028821/189384778-fc9d8017-2fae-454c-b937-95d3a38f4b7b.png)
 
-จาก heat map ข้างต้นปัจจัยที่มีความ Strong correlation มากที่สุด 5 อันดับแรก ได้แก่ 	Dereg Value, ARF, OMV , Power และ Dep
-ซึ่งอาจจะเป็นปัจจัยที่สำคัญหลักๆที่มีผลต่อราคา
+จาก heatmap ข้างต้นปัจจัยที่มีความ Strong correlation มากที่สุด 5 อันดับแรก ได้แก่ 	Dereg Value, ARF, OMV , Power และ Dep
+ซึ่งอาจจะเป็นปัจจัยที่สำคัญหลักๆที่มีผลต่อราคารถยนต์มือ2ในสิงคโปร์
 
 # Data preprocessing
 
 ## Create Dummy Variable
-เป็นการเปลี่ยน column ที่เป็นตัวแปรประเภท category สามารถเข้าสมการ regression ได้ โดยจะได้ค่าออกมาเป็น column ใหม่ ที่เป็นข้อมูลประเภท binary ความหมานคือถ้าเป็นข้อมูลประเภทนั้นจะแทนด้วย 1 ถ้าไม่ใช่แทนด้วย 0
+เป็นการเปลี่ยน column ที่เป็นตัวแปรประเภท category สามารถเข้าสมการ regression ได้ โดยจะได้ค่าออกมาเป็น column ใหม่ ที่เป็นข้อมูลประเภท binary ความหมายคือถ้าเป็นข้อมูลประเภทนั้นจะแทนด้วย 1 ถ้าไม่ใช่แทนด้วย 0
+
 ```
 df1 = pd.get_dummies(data=df, drop_first=True)
 ```
-ตัวอย่างตารางหลังการทำ dummy variable เรียบร้อย
+ตัวอย่างตารางหลังการทำ dummy variable
 
 ![image](https://user-images.githubusercontent.com/85028821/189478547-b44aec4e-b30e-412b-bfd8-5bbcd15c5cfc.png)
 
-
 ## Data spliting
 ทำการ split data ออกเป็น train และ test ทั้งตัวแปล x และ y โดยกำหนดอัตราส่วนเป็น 70:30 ตามลำดับ และกำหนด random_state=15
+
 ```
 X = df1.drop(['Price($)'], axis=1).values
 y = df1['Price($)'].values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=15, test_size=0.30)
 ```
+
 ## Data scaling
 เป็นการปรับข้อมูลให้มี scale อยู่ในระดับเดียวกัน เพื่อนำไปเข้าสมการ regresssion ได้มีประสิทธิภาพมากขึ้น โดยวิธีการนี้จะทำให้ข้อมูลในแต่ละ column ถูกปรับขนาดให้มีความแปรปรวนใกล้เคียงกันเท่ากับ 1
 ```
@@ -248,6 +223,7 @@ ss.fit(X)
 X_train_scaled = ss.transform(X_train)
 X_test_scaled = ss.transform(X_test)
 ```
+
 # Traditional Machine Learning
 ใช้วิธีอะไร ปรับค่าอะไรยังไงบ้าง ได้ MAE เป็นยังไง
 
