@@ -401,7 +401,9 @@ Evaluation metric ที่ใช้คือ MAE เนื่องจากข
 # Conclusion
 จากการทำ Traditional ML ทางกลุ่มเราเลือก algorithm มา2แบบ ได้แก่ Polynomial regression + Ridge และ DecisionTreeRegressor โดยใช้การประเมินmodel จากค่า mean absolute error (MAE) 
 และเวลาที่ใช้ในการrun ส่วนทาง Multilayer perceptron ใช้การประเมินแบบเดียวกัน ดังตาราง
-![image](https://user-images.githubusercontent.com/85028821/189715254-93b454dc-007d-4e7c-a41c-ad28f7467bc9.png)
+
+![image](https://user-images.githubusercontent.com/85028821/189803151-8bf9bedc-abf5-44e1-8804-f3bca7453f76.png)
+
 
 ผลลัพท์ที่ได้จากค่า MAE ของทั้ง Traditional ML และ MLP ไม่ได้แตกต่างกันมาก อาจเนื่องจากว่าข้อมูลที่นำมาใช้ไม่ได้ซับซ้อน หรือ ปริมาณไม่มาก แต่เวลาการrun MLP ใช้ค่อนข้างนานกว่า
 ดังนั้น ...
