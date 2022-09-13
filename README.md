@@ -230,6 +230,8 @@ X_test_scaled = ss.transform(X_test)
 
 # Traditional Machine Learning
 
+## Model 1 : Polynomial regression + Ridge
+
 ```
 from datetime import datetime
 start_time = datetime.now()
@@ -264,7 +266,7 @@ for i, alpha in enumerate(alphas):
 end_time = datetime.now()
 print('Duration: {}'.format(end_time - start_time))
 ```
-ทำ Traditional Machine learning ด้วย model Polynomial Regression degree3 และใช้ Ridge ในการทำ regularization
+ทำ Traditional Machine learning modelที่1 ด้วย model Polynomial Regression degree3 และใช้ Ridge ในการทำ regularization
 ทำการปรับค่า alpha ของ ridge เพื่อหา loss ที่ต่ำที่สุดของ test ที่ไม่ทำให้เกิดการ overfitting โดย loss function ที่เลือกใช้คือ Mean absolute error 
 
 ```
@@ -286,6 +288,23 @@ plt.legend()
 plt.show()
 ```
 ![image](https://user-images.githubusercontent.com/85028821/189691895-1aea8bfa-9146-407a-8f41-524d1d14533e.png)
+
+## Model 2 : DecisionTreeRegressor
+```
+from sklearn.tree import DecisionTreeRegressor
+from sklearn import metrics
+regr_1 = DecisionTreeRegressor(max_depth=60,min_samples_split=6,min_weight_fraction_leaf=0.001,max_features="auto")
+regr_1.fit(X_train_scaled,y_train)
+y_pred_train = regr_1.predict(X_train_scaled)
+y_pred_test = regr_1.predict(X_test_scaled)
+print('MAE:', metrics.mean_absolute_error(y_train, y_pred_train))
+print('MAE:', metrics.mean_absolute_error(y_test, y_pred_test))
+```
+ทำ Traditional Machine learning modelที่2 ด้วย model DecisionTreeRegressor โดยปรับค่า hyperparameter ดังนี้
+- max_depth=60
+- min_samples_split=6
+- min_weight_fraction_leaf=0.001
+- max_features="auto"
 
 # Multilayer perceptron (MLP)
 
