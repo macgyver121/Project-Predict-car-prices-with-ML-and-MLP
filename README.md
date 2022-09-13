@@ -384,12 +384,13 @@ history = model.fit(X_train_scaled, y_train, epochs=200, batch_size=2, verbose=1
 y_pred_test = model.predict( X_test_scaled )
 print(mean_absolute_error(y_test,y_pred_test))
 ```
-รอบที่1 ใช้เวลา ..... :  MAE of test dataset = 7518.92
-รอบที่2 ใช้เวลา ..... :  MAE of test dataset = 7139.60
-รอบที่3 ใช้เวลา ..... :  MAE of test dataset = 7725.01
-รอบที่4 ใช้เวลา ..... :  MAE of test dataset = 7056.47
+- รอบที่1 ใช้เวลา 2min43sec :  MAE of test dataset = 7367.43
+- รอบที่2 ใช้เวลา 3min06sec :  MAE of test dataset = 7849.03
+- รอบที่3 ใช้เวลา 3min26sec :  MAE of test dataset = 7149.07
+- รอบที่4 ใช้เวลา 3min18sec :  MAE of test dataset = 7373.33
+- รอบที่5 ใช้เวลา 4min15sec :  MAE of test dataset = 7112.05
 
-ได้ค่าเฉลี่ยของ MAE ออกมาเท่ากับ ...... และ SD เท่ากับ ......
+ได้ค่าเฉลี่ยของ MAE ออกมาเท่ากับ 7370.18 และ SD เท่ากับ 262.61
 
 ![image](https://user-images.githubusercontent.com/85028821/189704163-9c6eb463-7952-4dec-8f0c-8581cb5abaae.png)
 
