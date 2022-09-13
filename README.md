@@ -25,13 +25,7 @@
 16. Power: กำลังของรถยนต์
 17. No.of_Owners: จำนวนของผู้ที่เคยถือครองรถยนต์คันนี้
 18. Price: ราคาของรถยนต์ 
-
-```
-df.info()
-```
-![image](https://user-images.githubusercontent.com/85028821/189877388-1480e1ac-0fa8-4f41-882c-222a927e96eb.png)
-
-
+19. 
 ## Cleansing data
 
 เราทำการ clean ข้อมูลผ่าน application ชื่อ Openrefine โดยการกรุ๊ปชื่อตัวแปรให้เข้าใจง่าย เช่น Brand ของรถยนต์, เปลี่ยน type ของตัวแปร
@@ -43,6 +37,13 @@ df = df.replace('N.A.', np.NaN)
 del df['Unnamed: 18']
 df = df.dropna()
 ```
+
+info ของข้อมูลหลัง clean เสร็จ
+
+```
+df.info()
+```
+![image](https://user-images.githubusercontent.com/85028821/189877388-1480e1ac-0fa8-4f41-882c-222a927e96eb.png)
 
 # EDA
 พล็อตกราฟเพื่อดูการกระจายตัวของข้อมูล ในแต่ละปัจจัยที่มีโอกาศส่งผลต่อราคารถมือสองในสิงคโปร์
