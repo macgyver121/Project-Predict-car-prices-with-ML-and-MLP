@@ -29,6 +29,8 @@
 ```
 df.info()
 ```
+![image](https://user-images.githubusercontent.com/85028821/189877388-1480e1ac-0fa8-4f41-882c-222a927e96eb.png)
+
 
 ## Cleansing data
 
