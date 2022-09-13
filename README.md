@@ -309,6 +309,17 @@ print('MAE:', metrics.mean_absolute_error(y_test, y_pred_test))
 
 # Multilayer perceptron (MLP)
 
+## Data formating
+
+```
+y_test = y_test.reshape(-1,1)
+X_train = X_train.astype(np.float32)
+X_test = X_test.astype(np.float32)
+y_train = y_train.astype(np.float32)
+y_test = y_test.astype(np.float32)
+```
+ทำการเปลี่ยน type ของข้อมูลให้เป็น float32 และปรับshapeให้แน่ใจเพื่อเข้าโมเดล MLP
+
 ## Create Network architecture
 
 ```
