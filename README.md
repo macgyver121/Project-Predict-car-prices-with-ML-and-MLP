@@ -292,6 +292,9 @@ plt.show()
 
 ## Model 2 : DecisionTreeRegressor
 ```
+from datetime import datetime
+start_time = datetime.now()
+
 from sklearn.tree import DecisionTreeRegressor
 from sklearn import metrics
 regr_1 = DecisionTreeRegressor(max_depth=60,min_samples_split=6,min_weight_fraction_leaf=0.001,max_features="auto")
@@ -300,6 +303,9 @@ y_pred_train = regr_1.predict(X_train_scaled)
 y_pred_test = regr_1.predict(X_test_scaled)
 print('MAE:', metrics.mean_absolute_error(y_train, y_pred_train))
 print('MAE:', metrics.mean_absolute_error(y_test, y_pred_test))
+
+end_time = datetime.now()
+print('Duration: {}'.format(end_time - start_time))
 ```
 ทำ Traditional Machine learning modelที่2 ด้วย model DecisionTreeRegressor โดยปรับค่า hyperparameter ดังนี้
 - max_depth=60
