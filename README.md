@@ -358,6 +358,7 @@ model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 
 ![MicrosoftTeams-image (7)](https://user-images.githubusercontent.com/85028821/189722913-80b6351a-dd45-48ee-861e-887f37436de8.png)
 
+- Creating tool : https://app.diagrams.net/
 
 ## Compile the model
 ```
@@ -455,6 +456,11 @@ Evaluation metric ที่ใช้คือ MAE เนื่องจากข
 - นายธีรพล   แสงเมือง    6410412019
 
 # Reference
-- https://github.com/christianversloot/machine-learning-articles/blob/main/creating-an-mlp-for-regression-with-keras.md
-- https://app.diagrams.net/
+- Chollet, F. (2017). Deep Learning with Python. New York, NY: Manning Publications.
+
+- Grover, P. (2019, May 24). 5 Regression Loss Functions All Machine Learners Should Know. Retrieved from https://heartbeat.fritz.ai/5-regression-loss-functions-all-machine-learners-should-know-4fb140e9d4b0
+
+- Keras. (n.d.). Sequential. Retrieved from https://keras.io/models/sequential/
+
+
 
