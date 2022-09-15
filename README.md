@@ -354,13 +354,10 @@ model.add(tf.keras.layers.Dense(1, activation='linear', name = 'output') )
 
 โดย model นี้ไม่ได้ทำการ regularization เนื่องจาก model ไม่ได้มีปัญหา overfitting
 
-Reference : https://github.com/christianversloot/machine-learning-articles/blob/main/creating-an-mlp-for-regression-with-keras.md
-
 ## Network diagram
 
 ![MicrosoftTeams-image (7)](https://user-images.githubusercontent.com/85028821/189722913-80b6351a-dd45-48ee-861e-887f37436de8.png)
 
-https://app.diagrams.net/
 
 ## Compile the model
 ```
@@ -456,4 +453,8 @@ Evaluation metric ที่ใช้คือ MAE เนื่องจากข
 - นายศิวกร    ศรีชัยพฤกษ์ 6410412012
 - นายนนทพร  วงษ์เล็ก    6410412016
 - นายธีรพล   แสงเมือง    6410412019
+
+# Reference
+- https://github.com/christianversloot/machine-learning-articles/blob/main/creating-an-mlp-for-regression-with-keras.md
+- https://app.diagrams.net/
 
